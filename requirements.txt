@@ -1,6 +1,6 @@
 pandas
 numpy
-nhl-statsapi
+nhl_statsapi
 plotly
 shinywidgets
 scipy
