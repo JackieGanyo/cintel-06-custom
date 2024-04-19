@@ -1,6 +1,6 @@
-pandas
-numpy
-nhl_statsapi
-plotly
+shiny 
 shinywidgets
-scipy
+ipyleaflet
+geopy
+faicons
+requests
