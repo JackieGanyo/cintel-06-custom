@@ -4,3 +4,4 @@ ipyleaflet
 geopy
 faicons
 requests
+shinyswatch
