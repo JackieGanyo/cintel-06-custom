@@ -3,24 +3,26 @@ from faicons import icon_svg
 from geopy.distance import geodesic, great_circle
 from shared import BASEMAPS, CITIES
 from shiny import reactive
+from shinyswatch import theme
 from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 city_names = sorted(list(CITIES.keys()))
 
-ui.page_opts(title="Location Distance Calculator", fillable=True)
+theme.yeti()
+
+ui.page_opts(title="Distance to Nana & my Cousins", fillable=True)
 {"class": "bslib-page-dashboard"}
 
 with ui.sidebar():
-    ui.input_selectize("loc1", "Location 1", choices=city_names, selected="New York")
-    ui.input_selectize("loc2", "Location 2", choices=city_names, selected="London")
+    ui.input_selectize("loc1", "Location 1", choices=city_names, selected="Nana in Minto")
+    ui.input_selectize("loc2", "Location 2", choices=city_names, selected="Raegan in Richmond")
     ui.input_selectize(
         "basemap",
         "Choose a basemap",
         choices=list(BASEMAPS.keys()),
-        selected="WorldImagery",
+        selected="NatGeoWorldMap",
     )
-    ui.input_dark_mode(mode="dark")
 
 with ui.layout_column_wrap(fill=False):
     with ui.value_box(showcase=icon_svg("globe"), theme="gradient-blue-indigo"):
@@ -29,7 +31,7 @@ with ui.layout_column_wrap(fill=False):
         @render.text
         def great_circle_dist():
             circle = great_circle(loc1xy(), loc2xy())
-            return f"{circle.kilometers.__round__(1)} km"
+            return f"{circle.miles.__round__(1)} mi"
 
     with ui.value_box(showcase=icon_svg("ruler"), theme="gradient-blue-indigo"):
         "Geodisic Distance"
@@ -37,7 +39,7 @@ with ui.layout_column_wrap(fill=False):
         @render.text
         def geo_dist():
             dist = geodesic(loc1xy(), loc2xy())
-            return f"{dist.kilometers.__round__(1)} km"
+            return f"{dist.miles.__round__(1)} mi"
 
     with ui.value_box(showcase=icon_svg("mountain"), theme="gradient-blue-indigo"):
         "Altitude Difference"
@@ -55,7 +57,7 @@ with ui.card():
 
     @render_widget
     def map():
-        return L.Map(zoom=4, center=(0, 0))
+        return L.Map(zoom=5, center=(0, 0))
 
 
 # Reactive values to store location information
