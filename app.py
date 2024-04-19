@@ -47,7 +47,7 @@ with ui.layout_column_wrap(fill=False):
         @render.text
         def altitude():
             try:
-                return f'{loc1()["altitude"] - loc2()["altitude"]} m'
+                return f'{loc1()["altitude"] - loc2()["altitude"]} feet'
             except TypeError:
                 return "N/A (altitude lookup failed)"
 
